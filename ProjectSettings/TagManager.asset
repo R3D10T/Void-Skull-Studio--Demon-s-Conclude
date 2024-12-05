@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - Attack
+  - Target
+  - PlayerHealth
+  - EnemyHealth
+  - Action
   layers:
   - Default
   - TransparentFX

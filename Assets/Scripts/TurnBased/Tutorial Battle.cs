@@ -144,22 +144,7 @@ namespace LP.TurnBased
         {
             if (EnemyStat.EnemyCurHP > 0)
             {
-                if (EnemyStat.EnemyName == Enemies[0].EnemyName)
-                {
-                    yield return new WaitForSeconds(1);
-                }
-                if (EnemyStat.EnemyName == Enemies[1].EnemyName)
-                {
-                    yield return new WaitForSeconds(2);
-                }
-                if (EnemyStat.EnemyName == Enemies[2].EnemyName)
-                {
-                    yield return new WaitForSeconds(3);
-                }
-                if (EnemyStat.EnemyName == Enemies[3].EnemyName)
-                {
-                    yield return new WaitForSeconds(4);
-                }
+                yield return new WaitForSeconds(3);
 
                 int RandomAct = 0;
                 RandomAct = UnityEngine.Random.Range(0, 2);   //2 is exclueded so this is 0-1
@@ -237,8 +222,11 @@ namespace LP.TurnBased
 
             for (int i = 0; i < Enemies.Length; i++)
             {
-                PlayerStat.Exp += Enemies[i].Exp;
-                Enemies[i].ExpGiven = true;
+                if (!Enemies[i].ExpGiven)
+                {
+                    PlayerStat.Exp += Enemies[i].Exp;
+                    Enemies[i].ExpGiven = true;
+                }
             }
 
         }

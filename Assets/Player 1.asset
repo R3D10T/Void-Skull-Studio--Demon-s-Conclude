@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68d1c56f3e507c4881a470db0f4a194, type: 3}
   m_Name: Player 1
   m_EditorClassIdentifier: 
-  MaxHP: 1000
-  CurHP: 835
+  MaxHP: 40
+  CurHP: 40
   Atk: 20
   Def: 5
   Level: 1
-  Exp: 90
-  ExpToNext: 100
+  Exp: 0
+  ExpToNext: 0
   gridCoords: {x: 0, y: 0}

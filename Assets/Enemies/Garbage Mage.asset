@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Garbage Mage
   m_EditorClassIdentifier: 
   EnemyName: Garbage Mage
-  EnemyMaxHP: 20
-  EnemyCurHP: 20
+  EnemyMaxHP: 40
+  EnemyCurHP: 40
   EnemyAtk: 12
   EnemyDef: 3
   Exp: 5
