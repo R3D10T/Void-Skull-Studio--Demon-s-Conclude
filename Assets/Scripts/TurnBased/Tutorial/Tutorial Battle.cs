@@ -140,7 +140,7 @@ namespace LP.TurnBased
         {
             if (EnemyStat.EnemyCurHP > 0)
             {
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(2);
 
                 int RandomAct = 0;
                 RandomAct = UnityEngine.Random.Range(0, 2);   //2 is exclueded so this is 0-1
