@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHP: 40
   CurHP: 40
-  Atk: 20
+  Atk: 15
   Def: 5
   Level: 1
   Exp: 0

@@ -9,6 +9,7 @@ public class TutorialTextManager : MonoBehaviour
     public GameObject[] Tutorials;
     public GameObject Filter;
     public bool isPaused;
+    public bool hasTargetted;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class TutorialTextManager : MonoBehaviour
         }
         Filter.SetActive(false);
         isPaused = false;
+        hasTargetted = false;
 
         actionstut();
     }
@@ -60,10 +62,14 @@ public class TutorialTextManager : MonoBehaviour
     }
     public void Targettut()
     {
-        Filter.SetActive(true);
-        Tutorials[1].SetActive(true);
-        isPaused = true;
-        Time.timeScale = 0f;
+        if (!hasTargetted)
+        {
+            Filter.SetActive(true);
+            Tutorials[1].SetActive(true);
+            isPaused = true;
+            Time.timeScale = 0f;
+            hasTargetted=true;
+        }
     }
 
     public void resumeGame(GameObject tut)

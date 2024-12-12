@@ -48,7 +48,7 @@ namespace LP.TurnBased
 
             for (int i = 0; i < Enemies.Length; i++)
             {
-                spawn(Enemies[i].Model, EnemySpot[i]);
+                //spawn(Enemies[i].Model, EnemySpot[i]);             Commented out for now because we don't have 3D assets
                 Enemies[i].EnemyCurHP = Enemies[i].EnemyMaxHP;
                 Enemies[i].Dead = false;
                 Enemies[i].ExpGiven = false;
@@ -122,21 +122,17 @@ namespace LP.TurnBased
                 AttackBut.interactable = false;
                 HealBut.interactable = false;
 
-                for (int j = 0; j < Enemies.Length; j++)
-                {
-                    if (!Enemies[j].Dead)
-                    {
-                        StartCoroutine(EnemyTurn(Enemies[j]));
-                    }
-                }
+               
+                StartCoroutine(EnemyTurn(Enemies[0]));
+                 
 
                 ChangeTurn();
             }
 
             if (Playerturn)
             {
-                AttackBut.interactable = true;
-                HealBut.interactable = true;
+                //AttackBut.interactable = true;
+                //HealBut.interactable = true;
             }
         }
 
@@ -158,6 +154,9 @@ namespace LP.TurnBased
                     EnemyAttack(EnemyStat);
                 }
             }
+
+            AttackBut.interactable = true;
+            HealBut.interactable = true;
 
         }
 
@@ -233,7 +232,7 @@ namespace LP.TurnBased
 
         public void EndBattle()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(2);
         }
 
         public void spawn(GameObject prefab, GameObject location)
