@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Intro.unity
-    guid: d09170582e9c69b4a92e6eaa57749226
+    path: Assets/Novel Intro/Book Intro/Example/scenes/Book Intro.unity
+    guid: 45db2a3d82b5a1f4bac228dc19dbcec4
   - enabled: 1
     path: Assets/Scenes/Tutorial Battle.unity
     guid: 72b15884fa965ea469fb283f933f8201
