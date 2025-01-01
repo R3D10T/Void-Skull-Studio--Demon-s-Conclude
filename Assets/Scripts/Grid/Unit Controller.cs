@@ -85,7 +85,7 @@ public class UnitController : MonoBehaviour
 
     private void Battle()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     public void LevelUp()

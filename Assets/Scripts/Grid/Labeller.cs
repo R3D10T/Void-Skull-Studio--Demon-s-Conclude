@@ -46,6 +46,7 @@ public class Labeller : MonoBehaviour
 
         Rend = Tile.GetComponent<Renderer>();
         Rend.enabled = true;
+        
         if (BattleSpot)
         {
             Rend.sharedMaterial = Material[1];
