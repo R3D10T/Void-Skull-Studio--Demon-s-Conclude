@@ -249,7 +249,7 @@ namespace LP.TurnBased
                 attack = 0;
             }
 
-            enemyStat.EnemyCurHP -= attack;
+            Damage(attack, enemyStat, null);
 
             ChangeTurn();
         }
@@ -262,8 +262,31 @@ namespace LP.TurnBased
                 attack = 0;
             }
 
-            PlayerStat.CurHP -= attack;
+            Damage(attack, null, PlayerStat);
 
         }
+
+        public void Damage(int damage, EnemyTemplate enemy, PlayerTemplate player)
+        {
+            if (player == null)
+            {
+                enemy.EnemyCurHP -= damage;
+
+                if (enemy.EnemyCurHP < 0)
+                {
+                    enemy.EnemyCurHP = 0;
+                }
+            }
+            else
+            {
+                player.CurHP -= damage;
+
+                if (player.CurHP < 0)
+                {
+                    player.CurHP = 0;
+                }
+            }
+        }
     }
+
 }
