@@ -9,9 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _StartingSceneTransition;
     [SerializeField] private GameObject _EndingSceneTransition;
     [SerializeField] private Book book; // Reference to the Book script
+    public Animator Animator;
+
 
     private void Start()
     {
+        
         _StartingSceneTransition.SetActive(true);
         Invoke(nameof(DisableStartingSceneTransition), 5f);
     }
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
         if (book.currentPage >= 8)
         {
             StartCoroutine(TransitionScene());
+            Animator.SetBool("End", true);
         }
     }
 
