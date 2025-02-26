@@ -151,10 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a080ae2e134a6144bd5e330453a5892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHUD: {fileID: 2145837494}
+  enemyHUD: {fileID: 224356315}
   PlayerPrefab: {fileID: 1417765657790200150, guid: d7d32a9a434ccb447b89588d4e3422a1, type: 3}
   EnemyPrefab: {fileID: 7327591750060457500, guid: dce4b4e06e62f6449847977f95542a22, type: 3}
-  PlayerPos: {fileID: 0}
-  EnemyPos: {fileID: 0}
+  PlayerPos: {fileID: 2045905905}
+  EnemyPos: {fileID: 1192553924}
+  DialougeText: {fileID: 1909485223}
   state: 0
 --- !u!4 &63178260
 Transform:
@@ -532,6 +535,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224356314}
+  - component: {fileID: 224356315}
   m_Layer: 5
   m_Name: EnemyUI
   m_TagString: Untagged
@@ -561,6 +565,20 @@ RectTransform:
   m_AnchoredPosition: {x: 712, y: 453}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &224356315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224356313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ed3712e00bc6340a36676779eb8b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 1148106463}
+  HpSlider: {fileID: 1886824889}
 --- !u!1 &454356563
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,8 +919,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2145837493}
-  - {fileID: 1681836857}
   - {fileID: 224356314}
+  - {fileID: 1681836857}
   - {fileID: 1000340989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1796,7 +1814,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1404247400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 63178259}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: OnAttackbutton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1404247400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,6 +2652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2145837493}
+  - component: {fileID: 2145837494}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -2651,6 +2682,20 @@ RectTransform:
   m_AnchoredPosition: {x: -711, y: 453}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2145837494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145837492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ed3712e00bc6340a36676779eb8b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 799914737}
+  HpSlider: {fileID: 2022809771}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -62,6 +62,8 @@ MonoBehaviour:
   ATK: 10
   MaxHP: 50
   CurHP: 50
+  DEF: 5
+  Alive: 1
 --- !u!1 &3043803428940227699
 GameObject:
   m_ObjectHideFlags: 0

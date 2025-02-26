@@ -146,3 +146,5 @@ MonoBehaviour:
   ATK: 5
   MaxHP: 30
   CurHP: 30
+  DEF: 5
+  Alive: 0
