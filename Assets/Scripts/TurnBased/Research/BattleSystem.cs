@@ -16,10 +16,17 @@ public class BattleSystem : MonoBehaviour
     public Transform PlayerPos;
     public Transform EnemyPos;
 
+    
+
     public TMP_Text DialougeText;
 
     Unit PlayerU;
     Unit EnemyU;
+
+    public AttackAbility[] AbilityList;
+    public GameObject[] AbilityButList;
+    public GameObject AbilityDescription;
+    public TMP_Text AbilityDescriptionTxt;
 
     public BattleState state;
     // Start is called before the first frame update
@@ -27,8 +34,17 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.START;
 
+        AbilityDescriptionTxt = AbilityDescription.GetComponentInChildren<TMP_Text>();
+        AbilityDescriptionTxt.text = AbilityList[0].description;
+        AbilityDescription = Instantiate(AbilityDescription, AbilityButList[0].transform);
+
         StartCoroutine(SetUpBattle());
         
+    }
+
+    private void Update()
+    {
+      
     }
 
     private IEnumerator SetUpBattle()
@@ -55,14 +71,8 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
-    IEnumerator PlayerAttack()
+    IEnumerator PlayerAttack(int damage)
     {
-        int damage = PlayerU.ATK - EnemyU.DEF;
-        if (damage < 0) 
-        {
-            damage = 0;
-        }
-
         EnemyU.TakeDamage(PlayerU, damage);
 
         enemyHUD.SetHP(EnemyU.CurHP);
@@ -143,6 +153,49 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PlayerAttack());
+        int damage = PlayerU.ATK - EnemyU.DEF;
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+
+        StartCoroutine(PlayerAttack(damage));
+    }
+
+    public void OnAbilityButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        for (int i = 0; i < AbilityList.Length; i++)
+        {
+            if (AbilityList[i].Obtained)
+            {
+                AbilityButList[i].SetActive(true);
+            }
+        }
+    }
+
+    public void OnScratchButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        if (AbilityList[0].Obtained)
+        {
+            int Attack = AbilityList[0].Activate(PlayerU);
+
+            int damage = Attack - EnemyU.DEF;
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+
+            StartCoroutine(PlayerAttack(damage));
+        }
     }
 }
