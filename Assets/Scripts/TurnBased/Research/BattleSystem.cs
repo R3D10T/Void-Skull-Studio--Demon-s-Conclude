@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
@@ -16,15 +17,16 @@ public class BattleSystem : MonoBehaviour
     public Transform PlayerPos;
     public Transform EnemyPos;
 
-    
+    public Canvas canvas;
+
+    public Unit PlayerU;
+    public Unit EnemyU;
 
     public TMP_Text DialougeText;
 
-    Unit PlayerU;
-    Unit EnemyU;
-
     public AttackAbility[] AbilityList;
     public GameObject[] AbilityButList;
+
     public GameObject AbilityDescription;
     public TMP_Text AbilityDescriptionTxt;
 
@@ -49,13 +51,11 @@ public class BattleSystem : MonoBehaviour
 
     private IEnumerator SetUpBattle()
     {
-        GameObject playerGO = Instantiate(PlayerPrefab, PlayerPos);
+        GameObject playerGO = Instantiate(PlayerPrefab, canvas.transform);
         playerGO.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-        PlayerU = playerGO.GetComponent<Unit>();
         
         GameObject enemyGO = Instantiate(EnemyPrefab, EnemyPos);
         enemyGO.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-        EnemyU = enemyGO.GetComponent<Unit>();
 
         EnemyU.Alive = true;
         EnemyU.CurHP = EnemyU.MaxHP;
@@ -71,15 +71,32 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
+    IEnumerator EndTurn(Unit Turn)
+    {
+
+        if (Turn == PlayerU)
+        {
+            state = BattleState.ENEMYTURN;
+            yield return new WaitForSeconds(3);
+            StartCoroutine(EnemyTurn());
+        }
+        else
+        {
+            state = BattleState.PLAYERTURN;
+            yield return new WaitForSeconds(3);
+            PlayerTurn();
+        }
+    }
+
     IEnumerator PlayerAttack(int damage)
     {
-        EnemyU.TakeDamage(PlayerU, damage);
+        int DMG = EnemyU.TakeDamage(PlayerU, damage);
 
         enemyHUD.SetHP(EnemyU.CurHP);
         playerHUD.SetHP(PlayerU.CurHP);
 
 
-        DialougeText.text = PlayerU.name + " hit " + EnemyU.name + " for " + damage + " damage";
+        DialougeText.text = PlayerU.name + " hit " + EnemyU.name + " for " + DMG + " damage";
 
 
         if (EnemyU.Alive)
@@ -113,18 +130,25 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.ENEMYTURN)
         {
-            int DMG = EnemyU.ATK - PlayerU.DEF;
-            if (DMG < 0)
+            if (!EnemyU.Paralysis)
             {
-                DMG = 0;
+                int DMG = EnemyU.ATK - PlayerU.DEF;
+                if (DMG < 0)
+                {
+                    DMG = 0;
+                }
+
+                int damage = PlayerU.TakeDamage(EnemyU, DMG);
+
+                enemyHUD.SetHP(EnemyU.CurHP);
+                playerHUD.SetHP(PlayerU.CurHP);
+
+                DialougeText.text = EnemyU.name + " hit " + PlayerU.name + " for " + damage + " damage";
             }
-
-            PlayerU.TakeDamage(EnemyU, DMG);
-
-            enemyHUD.SetHP(EnemyU.CurHP);
-            playerHUD.SetHP(PlayerU.CurHP);
-
-            DialougeText.text = EnemyU.name + " hit " + PlayerU.name + " for " + DMG + " damage";
+            else
+            {
+                DialougeText.text = EnemyU.name + " is paralysed";
+            }
 
             yield return new WaitForSeconds(3);
 
@@ -144,6 +168,8 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         DialougeText.text = "Choose an action";
+
+        PlayerU.Guarding = false;
     }
 
     public void OnAttackbutton()
@@ -187,7 +213,7 @@ public class BattleSystem : MonoBehaviour
 
         if (AbilityList[0].Obtained)
         {
-            int Attack = AbilityList[0].Activate(PlayerU);
+            int Attack = AbilityList[0].Activate(PlayerU, EnemyU);
 
             int damage = Attack - EnemyU.DEF;
             if (damage < 0)
@@ -197,5 +223,36 @@ public class BattleSystem : MonoBehaviour
 
             StartCoroutine(PlayerAttack(damage));
         }
+    }
+
+    public void OnSweepButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        if (AbilityList[1].Obtained)
+        {
+            AbilityList[1].Activate(PlayerU, EnemyU);
+
+            DialougeText.text = "You swept the " + EnemyU.name + " off it's feet"; //NEEDS FAIL LINE
+
+            StartCoroutine(EndTurn(PlayerU));  
+        }
+    }
+
+    public void OnGuardButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        PlayerU.Guarding = true;
+
+        DialougeText.text = "You Guarded";
+
+        StartCoroutine(EndTurn(PlayerU));
     }
 }

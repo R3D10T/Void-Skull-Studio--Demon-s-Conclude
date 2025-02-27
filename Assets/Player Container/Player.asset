@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe2852ca9aae3e41bf7090b3ec12d15, type: 3}
-  m_Name: Scratch
+  m_Script: {fileID: 11500000, guid: 52db162d97ece1945b7d344ea9adefb3, type: 3}
+  m_Name: Player
   m_EditorClassIdentifier: 
-  AbilityName: Scratch
-  description: Does 1.5x damage
-  Obtained: 1
-  Multiplyer: 1.5
+  name: Player
+  ATK: 10
+  MaxHP: 50
+  CurHP: 44
+  DEF: 5
+  Alive: 1
+  Guarding: 0
   Paralysis: 0
-  Odds: 0

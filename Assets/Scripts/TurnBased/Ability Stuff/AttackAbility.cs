@@ -5,12 +5,27 @@ using UnityEngine;
 [CreateAssetMenu]
 public class AttackAbility : Ability
 {
-    public double Boost;
-    public override int Activate(Unit Player)
+    public double Multiplyer;
+    public bool Paralysis;
+    public int Odds;
+    public override int Activate(Unit Player, Unit Target)
     {
+        int newATK = Player.ATK;
         //return base.Activate(Player); 
+        if (Multiplyer > 0)
+        {
+            newATK = (int)(Player.ATK * Multiplyer);
+        }
 
-        int newATK = (int)(Player.ATK * Boost);
+        if (Paralysis)
+        {
+            int RandHit = Random.Range(0, 100);
+
+            if (RandHit < Odds)
+            {
+                Target.Paralysis = true;
+            }
+        }
 
         return newATK;
     }

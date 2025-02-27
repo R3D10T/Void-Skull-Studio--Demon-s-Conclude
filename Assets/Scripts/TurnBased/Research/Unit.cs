@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+[CreateAssetMenu]
+public class Unit : ScriptableObject
 {
     public string name;
 
@@ -11,14 +12,22 @@ public class Unit : MonoBehaviour
     public int CurHP;
     public int DEF;
     public bool Alive;
+    public bool Guarding;
+    public bool Paralysis;
 
-    public void TakeDamage(Unit Attacker, int damage)
+    public int TakeDamage(Unit Attacker, int damage)
     {
+        if (Guarding)
+        {
+            damage = (int)(damage / 4); 
+        }
+
         CurHP -= damage;
         
         if (CurHP == 0) 
         {
             Alive = false;
         }
+        return damage;
     }
 }

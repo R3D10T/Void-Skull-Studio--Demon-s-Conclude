@@ -9,7 +9,7 @@ public class Ability : ScriptableObject
     public string description;
     public bool Obtained;
 
-    public virtual int Activate(Unit Player)
+    public virtual int Activate(Unit Player, Unit Target)
     {
         return 0;
     }
