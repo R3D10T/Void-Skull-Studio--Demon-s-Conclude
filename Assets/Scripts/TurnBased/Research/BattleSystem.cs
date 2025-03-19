@@ -130,20 +130,63 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.ENEMYTURN)
         {
+            EnemyU.Guarding = false;
+
+            for (int i = 0; i < AbilityList.Length; i++)
+            {
+                if (AbilityList[i].Obtained)
+                {
+                    AbilityButList[i].SetActive(false);
+                }
+            }
+
             if (!EnemyU.Paralysis)
             {
-                int DMG = EnemyU.ATK - PlayerU.DEF;
-                if (DMG < 0)
+                int RandAct = Random.Range(0, 3);
+                if (EnemyU.Charged == true) 
                 {
-                    DMG = 0;
+                    RandAct = 0;
                 }
 
-                int damage = PlayerU.TakeDamage(EnemyU, DMG);
+                if (RandAct == 0 || RandAct == 1)
+                {
+                    int DMG = 0;
+                    if (EnemyU.Charged == true)
+                    {
+                        DMG = (EnemyU.ATK * 3) - PlayerU.DEF;
+                        EnemyU.Charged = false;
+                    }
+                    else
+                    {
+                        DMG = EnemyU.ATK - PlayerU.DEF;
+                    }
 
-                enemyHUD.SetHP(EnemyU.CurHP);
-                playerHUD.SetHP(PlayerU.CurHP);
+                    if (DMG < 0)
+                    {
+                        DMG = 0;
+                    }
 
-                DialougeText.text = EnemyU.name + " hit " + PlayerU.name + " for " + damage + " damage";
+                    int damage = PlayerU.TakeDamage(EnemyU, DMG);
+
+                    enemyHUD.SetHP(EnemyU.CurHP);
+                    playerHUD.SetHP(PlayerU.CurHP);
+
+                    DialougeText.text = EnemyU.name + " hit " + PlayerU.name + " for " + damage + " damage";
+                }
+
+                if (RandAct == 2)
+                {
+                    EnemyU.Guarding = true;
+
+                    DialougeText.text = EnemyU.name + " guarded";
+                }
+
+                if (RandAct == 3)
+                {
+                    EnemyU.Charged = true;
+
+                    DialougeText.text = EnemyU.name + " is charging up";
+                }
             }
             else
             {

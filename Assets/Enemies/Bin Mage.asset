@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bin mage
   ATK: 9
-  MaxHP: 20
-  CurHP: 15
+  MaxHP: 40
+  CurHP: 20
   DEF: 5
   Alive: 1
   Guarding: 0
   Paralysis: 0
+  Charged: 0

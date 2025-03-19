@@ -14,6 +14,8 @@ public class UnitController : MonoBehaviour
     private bool battleStart = false;
     public PlayerTemplate Player;
 
+    public int CameraDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class UnitController : MonoBehaviour
         battleStart = false;
 
         selectedUnit.transform.position = new Vector3(Player.gridCoords.x, selectedUnit.position.y, Player.gridCoords.y);
-        PlayCam.transform.position = new Vector3(Player.gridCoords.x, PlayCam.position.y, Player.gridCoords.y);
+        PlayCam.transform.position = new Vector3(Player.gridCoords.x, PlayCam.position.y, (Player.gridCoords.y - CameraDistance));
     }
 
     // Update is called once per frame
@@ -45,8 +47,11 @@ public class UnitController : MonoBehaviour
                     Vector2Int NegMoveRange = new Vector2Int(startCoords.x - movementSpeed, startCoords.y - movementSpeed);
 
                     battleStart = hit.transform.GetComponent<Labeller>().BattleSpot;
-                    
 
+                    selectedUnit.transform.position = new Vector3(targetCoords.x, selectedUnit.position.y, targetCoords.y);
+                    PlayCam.transform.position = new Vector3((targetCoords.x), PlayCam.position.y, (targetCoords.y - CameraDistance));
+                    Player.gridCoords = targetCoords;
+                    /*
                     if (targetCoords.x <= PosMoveRange.x & targetCoords.x >= NegMoveRange.x) 
                     {
                         //selectedUnit.transform.position = new Vector3(targetCoords.x, selectedUnit.position.y, selectedUnit.position.y);
@@ -59,7 +64,7 @@ public class UnitController : MonoBehaviour
                             Player.gridCoords = targetCoords;
                         }
                     }
-
+                    */
                     if (battleStart)
                     {
                         hit.transform.GetComponent<Labeller>().BattleSpot = false;
@@ -85,7 +90,7 @@ public class UnitController : MonoBehaviour
 
     private void Battle()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
     }
 
     public void LevelUp()

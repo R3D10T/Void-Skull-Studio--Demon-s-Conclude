@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52db162d97ece1945b7d344ea9adefb3, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  name: Player
+  name: Demiurge
   ATK: 10
   MaxHP: 50
-  CurHP: 44
+  CurHP: 50
   DEF: 5
   Alive: 1
   Guarding: 0
   Paralysis: 0
+  Charged: 0

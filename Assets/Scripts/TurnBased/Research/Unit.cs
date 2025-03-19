@@ -14,6 +14,7 @@ public class Unit : ScriptableObject
     public bool Alive;
     public bool Guarding;
     public bool Paralysis;
+    public bool Charged;
 
     public int TakeDamage(Unit Attacker, int damage)
     {
