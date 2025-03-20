@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
@@ -24,11 +26,15 @@ public class BattleSystem : MonoBehaviour
 
     public TMP_Text DialougeText;
 
+    public GameObject ContinueButton;
+
     public AttackAbility[] AbilityList;
     public GameObject[] AbilityButList;
 
     public GameObject AbilityDescription;
     public TMP_Text AbilityDescriptionTxt;
+
+    public int TimeBreak;
 
     public BattleState state;
     // Start is called before the first frame update
@@ -60,6 +66,8 @@ public class BattleSystem : MonoBehaviour
         EnemyU.Alive = true;
         EnemyU.CurHP = EnemyU.MaxHP;
 
+        ContinueButton.SetActive(false);
+
         DialougeText.text = "A " + EnemyU.name + " appears.";
 
         playerHUD.SetHud(PlayerU);
@@ -77,13 +85,13 @@ public class BattleSystem : MonoBehaviour
         if (Turn == PlayerU)
         {
             state = BattleState.ENEMYTURN;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(TimeBreak);
             StartCoroutine(EnemyTurn());
         }
         else
         {
             state = BattleState.PLAYERTURN;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(TimeBreak);
             PlayerTurn();
         }
     }
@@ -102,13 +110,13 @@ public class BattleSystem : MonoBehaviour
         if (EnemyU.Alive)
         {
             state = BattleState.ENEMYTURN;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(TimeBreak);
             StartCoroutine(EnemyTurn());
         }
         else
         {
             state = BattleState.WON;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(TimeBreak);
             EndBattle();
         }
     }
@@ -118,12 +126,20 @@ public class BattleSystem : MonoBehaviour
         if (state == BattleState.WON)
         {
             DialougeText.text = "You Won!";
+            ContinueButton.SetActive(true);
         }
 
         if (state == BattleState.LOST)
         {
             DialougeText.text = "You Lost..";
+
+            ContinueButton.SetActive(true);
         }
+    }
+
+    public void ContinuePressed()
+    {
+        SceneManager.LoadScene(3);
     }
 
     IEnumerator EnemyTurn()
@@ -142,7 +158,7 @@ public class BattleSystem : MonoBehaviour
 
             if (!EnemyU.Paralysis)
             {
-                int RandAct = Random.Range(0, 3);
+                int RandAct = Random.Range(0, 4);
                 if (EnemyU.Charged == true) 
                 {
                     RandAct = 0;
@@ -193,7 +209,9 @@ public class BattleSystem : MonoBehaviour
                 DialougeText.text = EnemyU.name + " is paralysed";
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(TimeBreak);
+
+            EnemyU.Paralysis = false;
 
             if (PlayerU.Alive)
             {
@@ -210,6 +228,11 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        for (int i = 0; i < AbilityList.Length; i++)
+        {
+            AbilityList[i].LowerCooldown();
+        }
+
         DialougeText.text = "Choose an action";
 
         PlayerU.Guarding = false;
@@ -254,6 +277,13 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
+        if (AbilityList[0].ActiveCooldown > 0)
+        {
+            DialougeText.text = "Ability on cooldown";
+
+            return;
+        }
+
         if (AbilityList[0].Obtained)
         {
             int Attack = AbilityList[0].Activate(PlayerU, EnemyU);
@@ -263,6 +293,9 @@ public class BattleSystem : MonoBehaviour
             {
                 damage = 0;
             }
+
+
+            AbilityList[0].startCooldown();
 
             StartCoroutine(PlayerAttack(damage));
         }
@@ -275,11 +308,20 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
+        if (AbilityList[1].ActiveCooldown > 0)
+        {
+            DialougeText.text = "Ability on cooldown";
+
+            return;
+        }
+
         if (AbilityList[1].Obtained)
         {
             AbilityList[1].Activate(PlayerU, EnemyU);
 
             DialougeText.text = "You swept the " + EnemyU.name + " off it's feet"; //NEEDS FAIL LINE
+
+            AbilityList[1].startCooldown();
 
             StartCoroutine(EndTurn(PlayerU));  
         }

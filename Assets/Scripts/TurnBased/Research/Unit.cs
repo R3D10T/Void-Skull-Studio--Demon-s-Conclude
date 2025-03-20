@@ -24,6 +24,11 @@ public class Unit : ScriptableObject
         }
 
         CurHP -= damage;
+
+        if (CurHP < 0)
+        {
+            CurHP = 0;
+        }
         
         if (CurHP == 0) 
         {

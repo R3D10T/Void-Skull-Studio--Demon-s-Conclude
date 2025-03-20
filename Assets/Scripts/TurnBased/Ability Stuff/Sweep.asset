@@ -18,3 +18,5 @@ MonoBehaviour:
   Multiplyer: 0
   Paralysis: 1
   Odds: 100
+  Cooldown: 3
+  ActiveCooldown: 0
