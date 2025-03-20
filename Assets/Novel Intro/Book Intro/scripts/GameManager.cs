@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Check the currentPage from the Book script
-        if (book.currentPage >= 8)
+        if (book.currentPage >= 2)
         {
             StartCoroutine(TransitionScene());
         }
@@ -39,6 +39,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        SceneManager.LoadScene("Tutorial Battle");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
