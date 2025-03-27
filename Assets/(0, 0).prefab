@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3143859585822463964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Material:
-  - {fileID: 2100000, guid: 3da2c43e5ca8f8a4caf91feb7c538326, type: 2}
+  - {fileID: 2100000, guid: 31aa99d28c49edd40a713d68d2585e74, type: 2}
   - {fileID: 2100000, guid: ad35f9f97ad7a5e469aae3298c87c32c, type: 2}
   Tile: {fileID: 6922364660237760002}
   Coords: {x: 0, y: 0}
@@ -273,7 +273,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.8100972, y: 0.25, z: 1.0239}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1333359181095006550}
@@ -306,7 +306,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3da2c43e5ca8f8a4caf91feb7c538326, type: 2}
+  - {fileID: 2100000, guid: 31aa99d28c49edd40a713d68d2585e74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
