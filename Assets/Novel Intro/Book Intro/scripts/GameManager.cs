@@ -6,39 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _StartingSceneTransition;
-    [SerializeField] private GameObject _EndingSceneTransition;
-    [SerializeField] private Book book; // Reference to the Book script
 
-    private void Start()
+    public void Start()
     {
-        _StartingSceneTransition.SetActive(true);
-        Invoke(nameof(DisableStartingSceneTransition), 5f);
+        StartCoroutine(LoadSceneAfterDelay());
     }
 
-    private void DisableStartingSceneTransition()
+    IEnumerator LoadSceneAfterDelay()
     {
-        _StartingSceneTransition.SetActive(false);
-    }
-
-    private void Update()
-    {
-        // Check the currentPage from the Book script
-        if (book.currentPage >= 2)
-        {
-            StartCoroutine(TransitionScene());
-        }
-    }
-
-    private IEnumerator TransitionScene()
-    {
-        if (_EndingSceneTransition != null)
-        {
-            _EndingSceneTransition.SetActive(true);
-        }
-
-        yield return new WaitForSeconds(1);
-
+        yield return new WaitForSeconds(8f); // Wait 8 seconds
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
