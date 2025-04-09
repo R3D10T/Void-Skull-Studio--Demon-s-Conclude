@@ -11,13 +11,14 @@ public class BottomBarController : MonoBehaviour
     private int sentenceIndex = -1;
     private StoryScene currentScene;
     private State state = State.COMPLETED;
+    private Coroutine typingCoroutine;
+    private bool skipTyping = false;
 
     private enum State
     {
         PLAYING, COMPLETED
     }
 
-    
     public void PlayScene(StoryScene scene)
     {
         currentScene = scene;
@@ -27,7 +28,11 @@ public class BottomBarController : MonoBehaviour
 
     public void PlayNextSentence()
     {
-        StartCoroutine(TypeText(currentScene.sentences[++sentenceIndex].text));
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        typingCoroutine = StartCoroutine(TypeText(currentScene.sentences[++sentenceIndex].text));
         personNameText.text = currentScene.sentences[sentenceIndex].speaker.speakerName;
         personNameText.color = currentScene.sentences[sentenceIndex].speaker.textColor;
     }
@@ -47,16 +52,32 @@ public class BottomBarController : MonoBehaviour
         barText.text = "";
         state = State.PLAYING;
         int wordIndex = 0;
+        skipTyping = false;
 
         while (state != State.COMPLETED)
         {
+            if (skipTyping)
+            {
+                barText.text = text;
+                state = State.COMPLETED;
+                break;
+            }
+
             barText.text += text[wordIndex];
             yield return new WaitForSeconds(0.05f);
-            if(++wordIndex == text.Length)
+            if (++wordIndex == text.Length)
             {
                 state = State.COMPLETED;
                 break;
             }
+        }
+    }
+
+    public void SkipText()
+    {
+        if (state == State.PLAYING)
+        {
+            skipTyping = true;
         }
     }
 }
