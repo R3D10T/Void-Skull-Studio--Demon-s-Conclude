@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   sentences:
-  - text: Suddenly I woke up and decided to go for a walk
-    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
+  - text: The seasons too were split among the two halves of the world, the humans
+      knew the joys of Summer and Spring while demons had the comfort of Autumn and
+      Winter, each had much and yet desired more for themselves. Humans had light
+      domain magic while Demons had the magic domain of darkness. Just as everything
+      around them only knew opposition, so too did they. Time watered the jealousy
+      and disdain in their hearts, arguments turned into skirmishes and eventually
+      wars
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
   - text: ...
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
-  background: {fileID: 21300000, guid: 36ed1396f91603b41849758edf2b76c6, type: 3}
+  background: {fileID: 21300000, guid: 21cf555efa1e5b648ba1ac0f967fe66f, type: 3}
   nextScene: {fileID: 11400000, guid: 322cc1a5845dec844a3dab162f68e0ff, type: 2}
