@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - text: "It\u2019s time to settle down, oh I know what will help, I will tell you
-      a story about a world once the brink of collapse."
+      a story about a world on the brink of collapse."
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
   - text: Get comfortable, this is a long one filled with both joys and sorrows,
       darkness and light, humans and demons, life and death, natural opposites that

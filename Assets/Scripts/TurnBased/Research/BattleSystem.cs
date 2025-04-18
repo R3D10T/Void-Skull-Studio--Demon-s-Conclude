@@ -139,7 +139,13 @@ public class BattleSystem : MonoBehaviour
 
     public void ContinuePressed()
     {
-        SceneManager.LoadScene(3);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
     }
 
     IEnumerator EnemyTurn()
