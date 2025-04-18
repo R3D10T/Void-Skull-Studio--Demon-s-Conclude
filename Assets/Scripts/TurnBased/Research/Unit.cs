@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Unit : ScriptableObject
 {
-    public string name;
+    //public string name;
 
     public int ATK;
     public int MaxHP;
