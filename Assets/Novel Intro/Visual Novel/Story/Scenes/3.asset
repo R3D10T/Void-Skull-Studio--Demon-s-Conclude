@@ -13,14 +13,25 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   sentences:
-  - text: Okay...
-    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
-  - text: What?
-    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
-  - text: Why there are no people around?
-    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
-  - text: I don't like it, but I need to move forward
-    speaker: {fileID: 11400000, guid: eddfe009b49d3484d8dfb5498d6a2f17, type: 2}
+  - text: Death indiscriminate spread throughout the land. Their weapons, magic,
+      and their knowledge had advanced with time.
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: The world itself was left a mere husk of what it once was from their countless
+      wars over thousands of years, it was only when the end of everything was staring
+      them all in the face that a truce was made.
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: ...
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: "These arch enemies worked together to create an artifact of unparalleled
+      power known as the \u2018Vita\u2019. Everyone\u2019s powers were sundered,
+      the cost they paid in full to create the \u2018Vita\u2019. "
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: They used the Vita to change the very laws of nature to end the fighting.
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: A new cycle was places on the world, now everyday with the rising of the
+      sun and the setting of the moon and the shifting of the seasons every year
+      would everything be shared.
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
   - text: ...
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
   background: {fileID: 21300000, guid: 36ed1396f91603b41849758edf2b76c6, type: 3}

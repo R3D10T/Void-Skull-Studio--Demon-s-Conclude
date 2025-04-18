@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour
 {
@@ -24,6 +26,16 @@ public class GameController : MonoBehaviour
             }
             else if (bottomBar.IsLastSentence())
             {
+                if (currentScene.nextScene == null)
+                {
+                    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+                    int nextSceneIndex = currentSceneIndex + 1;
+
+                    if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+                    {
+                        SceneManager.LoadScene(nextSceneIndex);
+                    }
+                }
                 currentScene = currentScene.nextScene;
                 bottomBar.PlayScene(currentScene);
                 backgroundController.SwitchImage(currentScene.background);
