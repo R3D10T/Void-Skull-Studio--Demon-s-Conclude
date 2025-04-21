@@ -20,16 +20,5 @@ MonoBehaviour:
       darkness and light, humans and demons, life and death, natural opposites that
       cannot thrive or exist without the other.
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
-  - text: Where to begin, I suppose the beginning of everything is as good a place
-      to start as any.
-    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
-  - text: "In the beginning there was only the great void, until light sparked into
-      existence and with light came darkness, the start of everything and with it
-      a world called \u2018Solum\u2019 was created. The top half of the world was
-      bathed in light, the domain of the humans, while the other was darkness and
-      the domain of the demons"
-    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
-  - text: ...
-    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
-  background: {fileID: 21300000, guid: 21cf555efa1e5b648ba1ac0f967fe66f, type: 3}
+  background: {fileID: 0}
   nextScene: {fileID: 11400000, guid: 5a227718f9adde8459ae4099f6eafac6, type: 2}

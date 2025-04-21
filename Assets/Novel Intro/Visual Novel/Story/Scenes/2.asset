@@ -13,6 +13,17 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   sentences:
+  - text: Where to begin, I suppose the beginning of everything is as good a place
+      to start as any.
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: "In the beginning there was only the great void, until light sparked into
+      existence and with light came darkness, the start of everything and with it
+      a world called \u2018Solum\u2019 was created. The top half of the world was
+      bathed in light, the domain of the humans, while the other was darkness and
+      the domain of the demons"
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
+  - text: ...
+    speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
   - text: The seasons too were split among the two halves of the world, the humans
       knew the joys of Summer and Spring while demons had the comfort of Autumn and
       Winter, each had much and yet desired more for themselves.
@@ -25,5 +36,5 @@ MonoBehaviour:
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
   - text: ...
     speaker: {fileID: 11400000, guid: 755db819ff1a2ea4aa12594b5b3997b8, type: 2}
-  background: {fileID: 21300000, guid: 21cf555efa1e5b648ba1ac0f967fe66f, type: 3}
+  background: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   nextScene: {fileID: 11400000, guid: 322cc1a5845dec844a3dab162f68e0ff, type: 2}

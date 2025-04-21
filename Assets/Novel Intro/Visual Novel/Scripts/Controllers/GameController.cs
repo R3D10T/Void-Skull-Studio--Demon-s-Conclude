@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GameController : MonoBehaviour
 {
     public StoryScene currentScene;
     public BottomBarController bottomBar;
     public BackgroundController backgroundController;
+
+    public GameObject cam1;
+    public GameObject cam2;
 
     void Start()
     {
@@ -36,14 +38,30 @@ public class GameController : MonoBehaviour
                         SceneManager.LoadScene(nextSceneIndex);
                     }
                 }
+
                 currentScene = currentScene.nextScene;
-                bottomBar.PlayScene(currentScene);
-                backgroundController.SwitchImage(currentScene.background);
+
+                if (currentScene != null)
+                {
+                    if (GetSceneName(currentScene) == "4")
+                    {
+                        if (cam1 != null) cam1.SetActive(true);
+                        if (cam2 != null) cam2.SetActive(false);
+                    }
+
+                    bottomBar.PlayScene(currentScene);
+                    backgroundController.SwitchImage(currentScene.background);
+                }
             }
             else
             {
                 bottomBar.PlayNextSentence();
             }
         }
+    }
+
+    string GetSceneName(StoryScene scene)
+    {
+        return scene != null ? scene.name : "None";
     }
 }

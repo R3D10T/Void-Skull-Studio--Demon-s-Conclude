@@ -1,3 +1,4 @@
+using LP.TurnBased;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,12 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         isPaused = false;
 
+    }
+
+    public void Retry()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Tutorial Battle");
     }
 
     public void PauseGame()

@@ -27,6 +27,8 @@ public class BattleSystem : MonoBehaviour
     public TMP_Text DialougeText;
 
     public GameObject ContinueButton;
+    public GameObject WinScreen;
+    public GameObject LoseScreen;
 
     public AttackAbility[] AbilityList;
     public GameObject[] AbilityButList;
@@ -65,6 +67,9 @@ public class BattleSystem : MonoBehaviour
 
         EnemyU.Alive = true;
         EnemyU.CurHP = EnemyU.MaxHP;
+
+        PlayerU.Alive = true;
+        PlayerU.CurHP = PlayerU.MaxHP;
 
         ContinueButton.SetActive(false);
 
@@ -126,14 +131,14 @@ public class BattleSystem : MonoBehaviour
         if (state == BattleState.WON)
         {
             DialougeText.text = "You Won!";
-            ContinueButton.SetActive(true);
+            WinScreen.SetActive(true);
         }
 
         if (state == BattleState.LOST)
         {
             DialougeText.text = "You Lost..";
 
-            ContinueButton.SetActive(true);
+            LoseScreen.SetActive(true);
         }
     }
 
