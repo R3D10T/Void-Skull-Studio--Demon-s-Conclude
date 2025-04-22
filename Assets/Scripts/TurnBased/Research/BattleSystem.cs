@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -39,29 +39,37 @@ public class BattleSystem : MonoBehaviour
     public int TimeBreak;
 
     public BattleState state;
-    // Start is called before the first frame update
+
+    [Header("Audio Clips")]
+    public AudioClip scratchSound;
+    public AudioClip sweepSound;
+    public AudioClip basicAttackSound;
+    public AudioClip enemyAttackSound;
+    public AudioClip enemyChargeUp;
+    public AudioClip guardSound;
+    public AudioClip victorySound;
+    public AudioClip defeatSound;
+
+    private AudioSource audioSource;
+
     void Start()
     {
         state = BattleState.START;
+
+        audioSource = GetComponent<AudioSource>();
 
         AbilityDescriptionTxt = AbilityDescription.GetComponentInChildren<TMP_Text>();
         AbilityDescriptionTxt.text = AbilityList[0].description;
         AbilityDescription = Instantiate(AbilityDescription, AbilityButList[0].transform);
 
         StartCoroutine(SetUpBattle());
-        
-    }
-
-    private void Update()
-    {
-      
     }
 
     private IEnumerator SetUpBattle()
     {
         GameObject playerGO = Instantiate(PlayerPrefab, canvas.transform);
         playerGO.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
-        
+
         GameObject enemyGO = Instantiate(EnemyPrefab, EnemyPos);
         enemyGO.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
 
@@ -86,7 +94,6 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EndTurn(Unit Turn)
     {
-
         if (Turn == PlayerU)
         {
             state = BattleState.ENEMYTURN;
@@ -103,14 +110,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack(int damage)
     {
+        PlaySound(basicAttackSound);
+
         int DMG = EnemyU.TakeDamage(PlayerU, damage);
 
         enemyHUD.SetHP(EnemyU.CurHP);
         playerHUD.SetHP(PlayerU.CurHP);
 
-
         DialougeText.text = PlayerU.name + " hit " + EnemyU.name + " for " + DMG + " damage";
-
 
         if (EnemyU.Alive)
         {
@@ -130,14 +137,15 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
+            PlaySound(victorySound);
             DialougeText.text = "You Won!";
             WinScreen.SetActive(true);
         }
 
         if (state == BattleState.LOST)
         {
+            PlaySound(defeatSound);
             DialougeText.text = "You Lost..";
-
             LoseScreen.SetActive(true);
         }
     }
@@ -170,7 +178,7 @@ public class BattleSystem : MonoBehaviour
             if (!EnemyU.Paralysis)
             {
                 int RandAct = Random.Range(0, 4);
-                if (EnemyU.Charged == true) 
+                if (EnemyU.Charged == true)
                 {
                     RandAct = 0;
                 }
@@ -178,7 +186,7 @@ public class BattleSystem : MonoBehaviour
                 if (RandAct == 0 || RandAct == 1)
                 {
                     int DMG = 0;
-                    if (EnemyU.Charged == true)
+                    if (EnemyU.Charged)
                     {
                         DMG = (EnemyU.ATK * 3) - PlayerU.DEF;
                         EnemyU.Charged = false;
@@ -189,9 +197,9 @@ public class BattleSystem : MonoBehaviour
                     }
 
                     if (DMG < 0)
-                    {
                         DMG = 0;
-                    }
+
+                    PlaySound(enemyAttackSound);
 
                     int damage = PlayerU.TakeDamage(EnemyU, DMG);
 
@@ -204,14 +212,14 @@ public class BattleSystem : MonoBehaviour
                 if (RandAct == 2)
                 {
                     EnemyU.Guarding = true;
-
+                    PlaySound(guardSound);
                     DialougeText.text = EnemyU.name + " guarded";
                 }
 
                 if (RandAct == 3)
                 {
                     EnemyU.Charged = true;
-
+                    PlaySound(enemyChargeUp);
                     DialougeText.text = EnemyU.name + " is charging up";
                 }
             }
@@ -245,22 +253,17 @@ public class BattleSystem : MonoBehaviour
         }
 
         DialougeText.text = "Choose an action";
-
         PlayerU.Guarding = false;
     }
 
     public void OnAttackbutton()
     {
         if (state != BattleState.PLAYERTURN)
-        {
             return;
-        }
 
         int damage = PlayerU.ATK - EnemyU.DEF;
         if (damage < 0)
-        {
             damage = 0;
-        }
 
         StartCoroutine(PlayerAttack(damage));
     }
@@ -268,9 +271,7 @@ public class BattleSystem : MonoBehaviour
     public void OnAbilityButton()
     {
         if (state != BattleState.PLAYERTURN)
-        {
             return;
-        }
 
         for (int i = 0; i < AbilityList.Length; i++)
         {
@@ -284,27 +285,22 @@ public class BattleSystem : MonoBehaviour
     public void OnScratchButton()
     {
         if (state != BattleState.PLAYERTURN)
-        {
             return;
-        }
 
         if (AbilityList[0].ActiveCooldown > 0)
         {
             DialougeText.text = "Ability on cooldown";
-
             return;
         }
 
         if (AbilityList[0].Obtained)
         {
-            int Attack = AbilityList[0].Activate(PlayerU, EnemyU);
+            PlaySound(scratchSound);
 
+            int Attack = AbilityList[0].Activate(PlayerU, EnemyU);
             int damage = Attack - EnemyU.DEF;
             if (damage < 0)
-            {
                 damage = 0;
-            }
-
 
             AbilityList[0].startCooldown();
 
@@ -315,40 +311,45 @@ public class BattleSystem : MonoBehaviour
     public void OnSweepButton()
     {
         if (state != BattleState.PLAYERTURN)
-        {
             return;
-        }
 
         if (AbilityList[1].ActiveCooldown > 0)
         {
             DialougeText.text = "Ability on cooldown";
-
             return;
         }
 
         if (AbilityList[1].Obtained)
         {
-            AbilityList[1].Activate(PlayerU, EnemyU);
+            PlaySound(sweepSound);
 
-            DialougeText.text = "You swept the " + EnemyU.name + " off it's feet"; //NEEDS FAIL LINE
+            AbilityList[1].Activate(PlayerU, EnemyU);
+            DialougeText.text = "You swept the " + EnemyU.name + " off its feet";
 
             AbilityList[1].startCooldown();
 
-            StartCoroutine(EndTurn(PlayerU));  
+            StartCoroutine(EndTurn(PlayerU));
         }
     }
 
     public void OnGuardButton()
     {
         if (state != BattleState.PLAYERTURN)
-        {
             return;
-        }
+
+        PlaySound(guardSound);
 
         PlayerU.Guarding = true;
-
         DialougeText.text = "You Guarded";
 
         StartCoroutine(EndTurn(PlayerU));
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }
