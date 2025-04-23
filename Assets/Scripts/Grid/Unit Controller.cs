@@ -95,11 +95,11 @@ public class UnitController : MonoBehaviour
 
     public void LevelUp()
     {
-        Player.Exp = Player.Exp - Player.ExpToNext;
-        Player.ExpToNext = Player.ExpToNext * 2;
-        Player.MaxHP += 10;
-        Player.Atk += 5;
-        Player.Def += 5;
-        Player.Level += 1;
+        //Player.Exp = Player.Exp - Player.ExpToNext;
+        //Player.ExpToNext = Player.ExpToNext * 2;
+        //Player.MaxHP += 10;
+        //Player.Atk += 5;
+        //Player.Def += 5;
+        //Player.Level += 1;
     }
 }
